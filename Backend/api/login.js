@@ -17,4 +17,11 @@ Router.get('/google/callback',passport.authenticate('google',{
 Router.get('/success',controller.success)
 Router.get('/failed',controller.fail)
 
+Router.use((req,res,next)=>{
+    res.status(404).json({
+        status:404,
+        message:'Page Not Found'
+    })
+})
+
 module.exports=Router
