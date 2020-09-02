@@ -4,6 +4,8 @@ const mongoose = require("mongoose")
 const User = require("../models/users")
 const bcrypt = require("bcrypt")
 const jwt= require("jsonwebtoken")
+const passport=require("passport")
+const GoogleStrategy=require("passport-google-oauth20").Strategy
 
 exports.signup = (req, res, next) => {
     User.find({ username: req.body.username })
@@ -88,3 +90,59 @@ exports.login=(req,res,next)=>{
     })
     .catch(err=>res.status(500).json({status:500,err:err}))
 }
+
+exports.success=((req,res,next)=>{
+    res.status(200).json({
+        status: 200,
+        message: 'Login Successful'
+    })
+})
+
+exports.fail=(req,res,next)=>{
+    res.status(500).json({
+        status:500,
+        message: "Login Failed"
+    })
+}
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+  done(null, obj);
+});
+
+passport.use(
+    new GoogleStrategy({
+        clientID:"83504346181-sqpaqf3b05tp2qhofndlf2b3p91t37lq.apps.googleusercontent.com",
+        clientSecret:"wz2HX_E97FUfnI6mjD0MQlFP",
+        callbackURL:"http://localhost:3000/auth/google/callback"
+        },
+        (accessToken,refreshToken,profile,done)=>{
+            User.find({_id:profile.id})
+            .exec()
+            .then((resp)=>{
+                console.log(profile)
+                if (resp.length>1){
+                    console.log("Welcome Back")
+                    done(null,profile);
+                }else{
+                    const newUser=new User({
+                        _id:profile.id,
+                        name:profile.displayName,
+                        username:profile.displayName,
+                        phone:'',
+                        email:profile.emails[0].value,
+                        address:'',
+                        gender:'',
+                        mode:'google'
+                    })
+                    newUser.save().then(resp=>console.log("Profile Added")).catch(err=>console.log(err))
+                    done(null,profile);
+                }
+            })
+            .catch(err=>console.log(err))
+        }
+    )
+)
