@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const app=express()
 const mongoose=require("mongoose")
 const login=require('./api/login')
+const extractor=require('./api/extractor')
 
 mongoose.connect('mongodb+srv://admindb:uU7kBCUgMZWt6EXO@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority',{
     useNewUrlParser: true,
@@ -16,6 +17,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.use("/auth",login)
+app.use("/text",extractor)
+app.use("/download",express.static("download"))
 
 app.use((req,res,next)=>{
     res.status(404).json({
