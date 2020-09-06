@@ -61,6 +61,7 @@ Router.post("/upload",upload.single("image"),(req,res,next)=>{
                         message:"File created successfully",
                         link:"http://localhost:3000/download/"+imageFilePath.split('.')[0]+".txt"
                     })
+                  //res.download("./download/"+imageFilePath.split('.')[0]+".txt")
             })
         })
     }
