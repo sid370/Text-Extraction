@@ -1,0 +1,107 @@
+/*
+	A couple styles to make the demo page look good
+ */
+
+.row {
+    margin-bottom: 1rem;
+}
+[class*="col-"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+#files {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+@media (min-width: 768px) {
+    #files {
+        min-height: 0;
+    }
+}
+#debug {
+    overflow-y: scroll !important;
+    height: 180px;
+}
+
+.dm-uploader {
+    position: center;
+    text-align: center;
+}
+.dm-uploader.active {
+    border-color: red;
+
+    border-style: solid;
+}
+
+.dm-uploader {
+    cursor: default;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dm-uploader .btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.dm-uploader .btn input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    width: 100%;
+    opacity: .0;
+    filter: alpha(opacity= 0);
+    cursor: pointer;
+}
+.body{
+    height: 100%;
+    font-family:Fjalla One;
+}
+.dottxt{
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    left:35px;
+    color: white;
+}
+.dot {
+    font-family:Fjalla One;
+    position: relative;
+    padding: 100px;
+    margin: 150px;
+    height: 25px;
+    width: 25px;
+    background-color:sandybrown;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot:hover{
+    border-radius: 30%;
+    background-color: skyblue;
+}
+.dot2:hover{
+    border-radius: 30%;
+    background-color: skyblue;
+}
+.dot2 {
+    font-family:Fjalla One;
+    position: relative;
+    padding: 102px;
+    margin: 50px;
+    height: 25px;
+    width: 25px;
+    background-color:sandybrown;
+    border-radius: 50%;
+    display: inline-block;
+}
