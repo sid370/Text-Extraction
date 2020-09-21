@@ -73,7 +73,7 @@ exports.login=(req,res,next)=>{
                 if (err)
                     res.status(500).json({status:500, message:"Authentication Failed"})
                 else if(response){
-                    const token=jwt.sign({email:resp[0].email, date: Date.now()},"kai78po",{expiresIn:"1h"});
+                    const token=jwt.sign({email:resp[0].email, date: Date.now()},"Your secret key",{expiresIn:"1h"});
                     return res.status(200).json({
                         status:200,
                         message: "login successful",
@@ -116,8 +116,8 @@ passport.deserializeUser(function (obj, done) {
 
 passport.use(
     new GoogleStrategy({
-        clientID:"83504346181-sqpaqf3b05tp2qhofndlf2b3p91t37lq.apps.googleusercontent.com",
-        clientSecret:"wz2HX_E97FUfnI6mjD0MQlFP",
+        clientID:"Your client ID",
+        clientSecret:"Client Secret",
         callbackURL:"http://localhost:3000/auth/google/callback"
         },
         (accessToken,refreshToken,profile,done)=>{
