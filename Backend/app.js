@@ -9,7 +9,7 @@ const passport = require("passport");
 const cors=require('cors')
 
 mongoose.connect(
-  "mongodb+srv://admindb:uU7kBCUgMZWt6EXO@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "Mongo URL",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
