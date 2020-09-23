@@ -5,7 +5,6 @@ const textextractor = require("../models/textextractor");
 const multer = require("multer");
 const ocrSpaceApi=require("ocr-space-api")
 const fs=require('fs');
-const checkauth=require('../middleware/checkauth')
 const { strict } = require("assert");
 
 let success = false;
@@ -40,7 +39,7 @@ var options = {
   };
 
 
-Router.post("/upload",checkauth, upload.single("image"),(req,res,next)=>{
+Router.post("/upload",upload.single("image"),(req,res,next)=>{
     console.log(req.file)
     if (success){
         success=false
@@ -62,7 +61,6 @@ Router.post("/upload",checkauth, upload.single("image"),(req,res,next)=>{
                         message:"File created successfully",
                         link:"http://localhost:3000/download/"+imageFilePath.split('.')[0]+".txt"
                     })
-                  //res.download("./download/"+imageFilePath.split('.')[0]+".txt")
             })
         })
     }

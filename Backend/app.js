@@ -8,13 +8,11 @@ const extractor = require("./api/extractor");
 const passport = require("passport");
 const cors=require('cors')
 
-mongoose.connect(
-  "Mongo URL",
-  {
+mongoose.connect('mongodb+srv://admindb:uU7kBCUgMZWt6EXO@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority',{
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+    useUnifiedTopology: true
+});
+
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
