@@ -14,6 +14,7 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
+    console.log(file.path)
     imageFilePath=file.originalname
     cb(null,file.originalname);
   },
