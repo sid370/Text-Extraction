@@ -114,16 +114,16 @@
         </ul>
     </div>
 </nav>
-<form class="box" method="POST">
+<form class="box" method="POST" onsubmit="func();return false;">
     <h1 style="font-family:fantasy;color:skyblue;">Sign Up</h1>
     <input type="text"  name="username" id="username" placeholder="Username">
     <input type="text"  name="email" id="email" placeholder="Email">
     <input type="text" name="name" id="name" placeholder="Full Name">
-    <input type="text" name="phone" placeholder="Phone Number">
-    <input type="text"  name="gender"  placeholder="Gender:M/F">
-    <input type="text"  name="address"  placeholder="Current Address">
-    <input type="password"  name="pass" placeholder="Password">
-    <input type="password"  name="pass2" placeholder="Re-enter Password">
+    <input type="text" name="phone" id="phone" placeholder="Phone Number">
+    <input type="text"  name="gender" id="gender" placeholder="Gender:M/F">
+    <input type="text"  name="address" id="address" placeholder="Current Address">
+    <input type="password"  name="pass" id="pass" placeholder="Password">
+    <input type="password"  name="pass2" id="pass2" placeholder="Re-enter Password">
     <input type="submit" value="Sign Up">
     <div class="or-container">
         <div class="line-separator"></div>
@@ -134,5 +134,39 @@
         <div class="col-md-12"> <a class="btn-lg btn-google btn-block text-uppercase btn-outline" href="#"><img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="google logo"> Signup Using Google</a> </div>
     </div> <br>
 </form>
+<script>
+    async function func(){
+        let body={
+            name: document.getElementById('name').value,
+            username: document.getElementById('username').value,
+            password: document.getElementById('pass').value,
+            email: document.getElementById('email').value,
+            address: document.getElementById('address').value,
+            Gender: document.getElementById('gender').value,
+            phone: document.getElementById('phone').value
+        }
+        if (document.getElementById('pass').value===document.getElementById('pass2').value){
+            await fetch('http://localhost:3000/auth/signup',{
+                method: 'POST',
+                mode: "cors",
+                credentials: 'same-origin',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://localhost:3000/'
+                },    
+                body: JSON.stringify(body),
+            }).then((resp)=>resp.json()).then((res)=>{console.log(res);
+            if (res.status===200) {
+                alert('Account Creation Successful');
+                window.location.href="index.html"
+            }
+            else alert(res.message)
+            })
+        }
+        else{
+            alert("Passwords do not match")
+        }
+    }
+</script>
 </body>
 </html>
