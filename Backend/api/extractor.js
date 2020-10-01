@@ -6,6 +6,7 @@ const multer = require("multer");
 const ocrSpaceApi=require("ocr-space-api")
 const fs=require('fs');
 const { strict } = require("assert");
+const checkauth=require('../middleware/checkauth')
 
 let success = false;
 let imageFilePath = "";
@@ -14,6 +15,7 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
+    console.log(file.path)
     imageFilePath=file.originalname
     cb(null,file.originalname);
   },
@@ -38,8 +40,9 @@ var options = {
     isOverlayRequired: true,
   };
 
-
-Router.post("/upload",upload.single("image"),(req,res,next)=>{
+  //d30ea9a1a788957
+  //c67b7bcd3288957
+Router.post("/upload",checkauth,upload.single("image"),(req,res,next)=>{
     console.log(req.file)
     if (success){
         success=false
