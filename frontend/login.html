@@ -159,7 +159,7 @@
     </form>
     <script>
       async function googlelogin(){
-        await fetch('http://localhost:3000/auth/google',{
+        await fetch('https://text-extractor-backend.herokuapp.com/auth/google',{
           mode: "cors",
           headers:{
             'Origin': 'http://localhost:3000/'
@@ -178,13 +178,13 @@
         };
         //alert(data.username);
         //document.domain="http://localhost:3000/auth/login"
-        await fetch("http://localhost:3000/auth/login", {
+        await fetch("https://text-extractor-backend.herokuapp.com/auth/login", {
           method: "POST",
           mode: "cors",
           credentials: 'same-origin',
           headers:{
             'Content-Type': 'application/json',
-            'Origin': 'http://localhost:3000/'
+            'Origin': 'https://text-extractor-backend.herokuapp.com/'
           },
           body: JSON.stringify(data),
         })

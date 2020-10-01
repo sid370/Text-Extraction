@@ -101,7 +101,7 @@
           formdata.append('image',file,file.name)
           axios({
                method: 'post',
-               url:'http://localhost:3000/text/upload',
+               url:'https://text-extractor-backend.herokuapp.com/text/upload',
                data: formdata,
                credentials: 'same-origin',
                headers:{

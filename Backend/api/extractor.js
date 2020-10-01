@@ -62,7 +62,7 @@ Router.post("/upload",checkauth,upload.single("image"),(req,res,next)=>{
                     res.status(200).json({
                         status:200,
                         message:"File created successfully",
-                        link:"http://localhost:3000/download/"+imageFilePath.split('.')[0]+".txt"
+                        link:"https://text-extractor-backend.herokuapp.com/download/"+imageFilePath.split('.')[0]+".txt"
                     })
             })
         })
