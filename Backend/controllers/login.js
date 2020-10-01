@@ -73,7 +73,7 @@ exports.login=(req,res,next)=>{
                 if (err)
                     res.status(500).json({status:500, message:"Authentication Failed"})
                 else if(response){
-                    const token=jwt.sign({email:resp[0].email, date: Date.now()},"Your secret key",{expiresIn:"1h"});
+                    const token=jwt.sign({email:resp[0].email, date: Date.now()},"kai78po",{expiresIn:"1h"});
                     return res.status(200).json({
                         status:200,
                         message: "login successful",

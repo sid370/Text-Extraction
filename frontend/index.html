@@ -12,6 +12,7 @@
  <link href="styles.css" rel="stylesheet">
 </head>
 <body style="background-image: linear-gradient(-100deg,white,skyblue);">
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
      if (localStorage.getItem("token")==="")
           window.location.href="home.html"
@@ -62,10 +63,33 @@
  </form>
 </main> 
 <script>
+     //const axios = require('axios').default;
      const file=document.getElementById('file-selector')
      file.addEventListener('change',(e)=>{
           console.log(e.target.files)
-          let data={
+          const file = event.target.files[0]
+          let formdata = new FormData();
+          formdata.append('image',file,file.name)
+          axios({
+               method: 'post',
+               url:'http://localhost:3000/text/upload',
+               data: formdata,
+               credentials: 'same-origin',
+               headers:{
+                    'Authorization':localStorage.getItem('token')
+               }
+          })
+          .then(res=>{
+               console.log(res)
+               if (res.data.status===200){
+                   window.open(
+                        res.data.link,
+                        '_blank'
+                   )
+               }
+          })
+          .catch(err=>console.warn(err))
+          /*let data={
                image: e.target.files[0]
           }
           console.log(100,data.image)
@@ -81,7 +105,7 @@
                console.log(resp)
                if (resp.status!==200) alert(resp.message)
           })
-          .catch(err=>console.warn(err))
+          .catch(err=>console.warn(err))*/
      })
      function logout(){
           localStorage.setItem("token","")
