@@ -143,7 +143,7 @@
         <div class="line-separator"></div>
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" onclick="googlelogin()">
           <a
             class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
             href="#"
@@ -158,6 +158,19 @@
       <br />
     </form>
     <script>
+      async function googlelogin(){
+        await fetch('http://localhost:3000/auth/google',{
+          mode: "cors",
+          headers:{
+            'Origin': 'http://localhost:3000/'
+          },
+        })
+        .then(res=>res.json())
+        .then(resp=>{
+          if (resp.status===200) window.location.href="index.html"
+          else alert("Login Insuccessful")
+        })
+      }
       async function func() {
         let data = {
           username: document.getElementById("username").value,
