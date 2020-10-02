@@ -155,12 +155,27 @@
                     'Origin': 'http://localhost:3000/'
                 },    
                 body: JSON.stringify(body),
-            }).then((resp)=>resp.json()).then((res)=>{console.log(res);
-            if (res.status===200) {
-                alert('Account Creation Successful');
-                window.location.href="login.html"
-            }
-            else alert(res.message)
+            }).then((resp)=>resp.json()).then((res)=>{
+                console.log(res)
+                if ('status' in res){
+                    if (res.status===200) {
+                        alert('Account Creation Successful');
+                        window.location.href="login.html"
+                    }
+                    else if (res.status!==500) alert(res.message)
+                    else{
+                        if ("email" in res.err.keyPattern){
+                            alert ("Email is already used")
+                        }
+                        else if ("phone" in res.err.keyPattern){
+                            alert ("Phone is already used")
+                        }
+                        else if ("username" in res.err.keyPattern){
+                            alert ("Username is already used")
+                        }
+                    }
+                }
+                
             })
         }
         else{
