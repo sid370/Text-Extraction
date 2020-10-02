@@ -2,9 +2,15 @@ const express=require("express")
 const Router=express.Router()
 const controller=require("../controllers/login")
 const passport=require('passport')
+const ExpressBrute =require('express-brute')
+
+var store=new ExpressBrute.MemoryStore()
+var bruteforce=new ExpressBrute(store,this.options={
+    minWait: 1000
+})
 
 Router.post('/signup',controller.signup)
-Router.post('/login',controller.login)
+Router.post('/login',bruteforce.prevent,controller.login)
 
 Router.use(passport.initialize())
 

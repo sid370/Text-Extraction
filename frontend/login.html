@@ -160,10 +160,7 @@
     <script>
       async function googlelogin(){
         await fetch('https://text-extractor-backend.herokuapp.com/auth/google',{
-          mode: "cors",
-          headers:{
-            'Origin': 'http://localhost:3000/'
-          },
+          methode: 'no-cors'
         })
         .then(res=>res.json())
         .then(resp=>{
@@ -194,6 +191,9 @@
             if (resp.status == 200) {
               localStorage.setItem("token",resp.token)
               window.location.href="index.html"
+            }
+            else if(resp.error.text){
+              alert("Too many requests, try after 10s or at "+resp.error.nextValidRequestDate)
             }
             else if(resp.status!=200){
               alert(resp.message)
