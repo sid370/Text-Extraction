@@ -192,12 +192,13 @@
               localStorage.setItem("token",resp.token)
               window.location.href="index.html"
             }
-            else if(resp.error.text){
-              alert("Too many requests, try after 10s or at "+resp.error.nextValidRequestDate)
-            }
             else if(resp.status!=200){
               alert(resp.message)
             }
+            else if(resp.error.text){
+              alert("Too many requests, try after 10s or at "+resp.error.nextValidRequestDate)
+            }
+            
 
           })
           .catch((err) => console.log(err));
