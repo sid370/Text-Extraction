@@ -1,4 +1,4 @@
-# Text-Extraction
+# Text-Extractor
 
 Project under work
 
