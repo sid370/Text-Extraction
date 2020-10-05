@@ -3,17 +3,15 @@
   <head>
     <title>Text Scanner</title>
     <script>
-      fetch(' http://www.geoplugin.net/json.gp')
+      fetch('https://ipapi.co/json/')
       .then(res=>res.json())
       .then(res=>{
-        if (res.geoplugin_status===200)
-          {
-            sessionStorage.setItem(res.geoplugin_request,sessionStorage.getItem(res.geoplugin_request)+1)
-            sessionStorage.setItem("ip",res.geoplugin_request)
-            if (sessionStorage.getItem(res.geoplugin_request).length>7){
+        console.log(res)
+            sessionStorage.setItem(res.ip,sessionStorage.getItem(res.ip)+1)
+            sessionStorage.setItem("ip",res.ip)
+            if (sessionStorage.getItem(res.ip).length>7){
               alert("Too frequent requests, your ip is banned for some period of time")
             }
-          }
       }).catch(err=>{
         console.warn(err)
       })
