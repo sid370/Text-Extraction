@@ -7,6 +7,7 @@ const login = require("./api/login");
 const extractor = require("./api/extractor");
 const passport = require("passport");
 const cors=require('cors')
+const iplogger=require("./api/iplogger")
 
 mongoose.connect('mongodb+srv://admindb:uU7kBCUgMZWt6EXO@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority',{
     useNewUrlParser: true,
@@ -22,9 +23,10 @@ app.use(cors())
 app.use(express.static(__dirname))
 
 
-
+app.use("/ip",iplogger)
 app.use("/auth", login);
 app.use("/text", extractor);
+
 app.use("/download", express.static("download"));
 
 app.use((req, res, next) => {

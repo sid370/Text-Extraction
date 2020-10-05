@@ -2,6 +2,47 @@
 <html lang="en">
   <head>
     <title>Text Scanner</title>
+    <script>
+      fetch(' http://www.geoplugin.net/json.gp')
+      .then(res=>res.json())
+      .then(res=>{
+        if (res.geoplugin_status===200)
+          {
+            sessionStorage.setItem(res.geoplugin_request,sessionStorage.getItem(res.geoplugin_request)+1)
+            sessionStorage.setItem("ip",res.geoplugin_request)
+            if (sessionStorage.getItem(res.geoplugin_request).length>7){
+              alert("Too frequent requests, your ip is banned for some period of time")
+            }
+          }
+      }).catch(err=>{
+        console.warn(err)
+      })
+    </script>
+    <script>
+      function getlocation(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            alert("Please switch to a browser that supports location to go ahead");
+            window.location.href="home.html"
+          }
+        }
+
+        function showPosition(position) {
+            console.log(position.coords.latitude +"," + position.coords.longitude);
+        }
+        
+        navigator.geolocation.watchPosition(()=>{
+        },(error)=>{
+          if (error.code == error.PERMISSION_DENIED){
+            alert("Please enable your location to go ahead");
+            window.location.href="home.html"
+          }
+        })
+
+        getlocation();
+        
+    </script>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link
@@ -143,7 +184,7 @@
         <div class="line-separator"></div>
       </div>
       <div class="row">
-        <div class="col-md-12" onclick="googlelogin()">
+        <div class="col-md-12" onclick="googlelogin(e);">
           <a
             class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
             href="#"
@@ -158,21 +199,30 @@
       <br />
     </form>
     <script>
-      async function googlelogin(){
-        await fetch('https://text-extractor-backend.herokuapp.com/auth/google',{
-          methode: 'no-cors'
-        })
-        .then(res=>res.json())
-        .then(resp=>{
-          if (resp.status===200) window.location.href="index.html"
-          else alert("Login Insuccessful")
-        })
+      
+      async function googlelogin(e){
+        console.log(e)
+        e.preventDefault()
+        await fetch("http://localhost:3000/auth/google")
+        .then(res=>console.log(res))
       }
       async function func() {
+        if (sessionStorage.getItem(localStorage.getItem("ip")).length>7){
+              alert("Too frequent requests, your ip is banned for some period of time")
+              return;
+            }
         let data = {
           username: document.getElementById("username").value,
           password: document.getElementById("password").value,
         };
+        if (data.username===""){
+          alert("Username cannot be blank");
+          return;
+        }
+        if (data.password===""){
+          alert("Password cannot be blank");
+          return;
+        }
         //alert(data.username);
         //document.domain="http://localhost:3000/auth/login"
         await fetch("https://text-extractor-backend.herokuapp.com/auth/login", {
@@ -194,6 +244,7 @@
               }
               else if(resp.status!=200){
                 alert(resp.message)
+                sessionStorage.setItem(sessionStorage.getItem("ip"),sessionStorage.getItem(sessionStorage.getItem("ip"))+1)
               }
             }
             else if(resp.error.text){
