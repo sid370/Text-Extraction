@@ -6,7 +6,6 @@
       fetch('https://ipapi.co/json/')
       .then(res=>res.json())
       .then(res=>{
-        console.log(res)
             sessionStorage.setItem(res.ip,sessionStorage.getItem(res.ip)+1)
             sessionStorage.setItem("ip",res.ip)
             if (sessionStorage.getItem(res.ip).length>7){
@@ -27,7 +26,7 @@
         }
 
         function showPosition(position) {
-            console.log(position.coords.latitude +"," + position.coords.longitude);
+            //console.log(position.coords.latitude +"," + position.coords.longitude);
         }
         
         navigator.geolocation.watchPosition(()=>{
@@ -199,7 +198,6 @@
     <script>
       
       async function googlelogin(e){
-        console.log(e)
         e.preventDefault()
         await fetch("http://localhost:3000/auth/google")
         .then(res=>console.log(res))
@@ -249,7 +247,7 @@
               alert("Too many requests, try after 10s or at "+resp.error.nextValidRequestDate)
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.warn(err));
       }
     </script>
   </body>
