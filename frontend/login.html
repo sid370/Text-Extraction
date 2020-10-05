@@ -205,7 +205,7 @@
         .then(res=>console.log(res))
       }
       async function func() {
-        if (sessionStorage.getItem(localStorage.getItem("ip")).length>7){
+        if (sessionStorage.getItem(sessionStorage.getItem("ip")).length>7){
               alert("Too frequent requests, your ip is banned for some period of time")
               return;
             }
