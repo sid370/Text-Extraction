@@ -9,7 +9,7 @@
             sessionStorage.setItem(res.ip,sessionStorage.getItem(res.ip)+1)
             sessionStorage.setItem("ip",res.ip)
             if (sessionStorage.getItem(res.ip).length>7){
-              alert("Too frequent requests, your ip is banned for some period of time")
+              alert("Too frequent requests, your ip is banned for this session")
             }
       }).catch(err=>{
         console.warn(err)
@@ -244,7 +244,7 @@
               }
             }
             else if(resp.error.text){
-              alert("Too many requests, try after 10s or at "+resp.error.nextValidRequestDate)
+              alert("Too many requests, try after sometime or at "+resp.error.nextValidRequestDate)
             }
           })
           .catch((err) => console.warn(err));
