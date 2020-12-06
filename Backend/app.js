@@ -9,7 +9,7 @@ const passport = require("passport");
 const cors=require('cors')
 const iplogger=require("./api/iplogger")
 
-mongoose.connect('mongodb+srv://admindb:uU7kBCUgMZWt6EXO@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority',{
+mongoose.connect(`mongodb+srv://admindb:${{secrets.keyID}}@cluster0.bz1lr.mongodb.net/<dbname>?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
